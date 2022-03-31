@@ -1,0 +1,5 @@
+Create initial translation by: ./baseline_trans.sh
+
+Create constraints for both fixing the translation and paraphrasing:
+./create_neg_para.sh
+./create_neg.sh
