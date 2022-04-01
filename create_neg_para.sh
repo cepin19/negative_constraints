@@ -11,5 +11,6 @@ do
      cat $f | python3  convert_constraints_to_suffix_tok.py 0.$i > $f.suffix_0.$i
      done
      cat $f | python3  convert_constraints_to_suffix_tok.py 1.0 > $f.suffix_1.0
+         cat $f | python3  convert_constraints_to_suffix_single_tok.py 1.0 > $f.suffix_single_word
 
     done

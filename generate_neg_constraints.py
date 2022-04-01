@@ -3,7 +3,7 @@ import nltk
 with os.scandir("outputs/") as it:
     for transf in it:
         if not transf.name.endswith("translated"): continue
-        constraintsf="outputs/{}negative_constraints".format(transf.name.replace("translated",""))
+        constraintsf="outputs/{}negative_constraints_improve".format(transf.name.replace("translated",""))
         reff=os.path.join("data/",transf.name.replace("constrained.txt_translated","references.txt"))
 
         with open(transf) as trans, open(reff) as refs, open(constraintsf,"w") as contraints:

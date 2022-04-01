@@ -1,5 +1,5 @@
 python3 generate_neg_constraints.py
-for f in outputs/*negative_constraints
+for f in outputs/*negative_constraints_improve
 do 
 	echo $f
 	~/marian-constraints/build/spm_encode --model ../neg/corp/encs.spm < $f > $f.sp_newsp
@@ -11,5 +11,6 @@ do
      cat $f | python3  convert_constraints_to_suffix_tok.py 0.$i > $f.suffix_0.$i
      done
      cat $f | python3  convert_constraints_to_suffix_tok.py 1.0 > $f.suffix_1.0
+     cat $f | python3  convert_constraints_to_suffix_single_tok.py > "$f".suffix_single_word
 
     done
