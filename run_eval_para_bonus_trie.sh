@@ -15,9 +15,10 @@ do
 
 	python3 score_multiple_suffix.py 1000 translated_para_bonus_trie_$prob | tr "\n" "," >> results/para_bonus_trie.csv 
 
-	python3 score_distance_suffix.py para_bonus_trie_$prob | tr "\n" "," >> results/para_bonus_trie.csv 
+	python3 score_distance_suffix.py translated_para_bonus_trie_$prob | tr "\n" "," >> results/para_bonus_trie.csv 
 
-	bash score_notconstrained_constrained_suffix.sh  translated_para_bonus_trie_$prob >> results/para_bonus_trie.csv 
+	bash score_notconstrained_constrained_suffix.sh  translated_para_bonus_trie_$prob | tr "\n" "," >> results/para_bonus_trie.csv 
+    CUDA_VISIBLE_DEVICES=1  python score_comet.py 20 translated_para_bonus_trie_$prob >> results/para_bonus_trie.csv
 done
 done
 

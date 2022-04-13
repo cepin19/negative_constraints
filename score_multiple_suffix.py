@@ -13,7 +13,7 @@ ref_len=0
 with os.scandir("outputs/") as it:
     for transf in it:
         if not transf.name.endswith(filename_end): continue
-        reff=os.path.join("data/",transf.name.replace("constrained.txt{}".format(filename_end),"references.txt"))
+        reff=os.path.join("testset/many-czech-references/",transf.name.replace(".src{}".format(filename_end),".refs"))
         with open(transf) as trans, open(reff) as refs:
             refs = [ [line] for line in refs.readlines()]
             trans = [trans.read()]

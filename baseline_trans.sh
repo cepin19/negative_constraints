@@ -1,11 +1,12 @@
 IFS=$(echo -en "\n\b")
-for f in data/*constrained.txt
+marian_path=~/marian-constraints/build
+for f in testset/many-czech-references/*.src
 do
-  echo $f
-  basef=`basename "$f"`
-   head -n 1 "$f" | cut -f1  > outputs/"$basef"_src
-   sed 's/$/ <sep> /g' outputs/"$basef"_src > outputs/"$basef"_src_sep
-~/marian-constraints/build/spm_encode  --model model/encs.spm < outputs/"$basef"_src_sep > outputs/"$basef"_src_sep.sp
-cat outputs/"$basef"_src_sep | ~/marian-constraints/build/marian-decoder -v model/encs.spm model/encs.spm --no-spm-decode -m model/model_transformer_base_para_neg.npz.best-perplexity.npz -n 1 > outputs/"$basef"_translated.sp
-~/marian-constraints/build/spm_decode  --model model/encs.spm < outputs/"$basef"_translated.sp > outputs/"$basef"_translated
+	echo $f
+	basef=`basename "$f"`
+	cp "$f"  outputs/"$basef"
+	sed 's/$/ <sep> /g' outputs/"$basef" > outputs/"$basef"_sep
+	"$marian_path"/spm_encode  --model model/encs.spm < outputs/"$basef"_sep > outputs/"$basef"_sep.sp
+	cat outputs/"$basef"_sep | "$marian_path"/marian-decoder -v model/encs.spm model/encs.spm --no-spm-decode -m model/model_transformer_base_para_neg.npz.best-perplexity.npz -n 1 > outputs/"$basef"_baseline_translated.sp
+	"$marian_path"/spm_decode  --model model/encs.spm < outputs/"$basef"_baseline_translated.sp > outputs/"$basef"_baseline_translated
 done

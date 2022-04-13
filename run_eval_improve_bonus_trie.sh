@@ -7,7 +7,7 @@ do
 	do
 	prob="-$i.$dec"	
 
-	bash test_constrained_improve_bonus_trie.sh $prob
+    bash test_constrained_improve_bonus_trie.sh $prob
    echo -n $prob, >> results/improve_bonus_trie.csv
 	python3 score_multiple_suffix.py 1 translated_improve_bonus_trie_$prob | tr "\n" "," >> results/improve_bonus_trie.csv 
 	
@@ -15,9 +15,11 @@ do
 
 	python3 score_multiple_suffix.py 1000 translated_improve_bonus_trie_$prob | tr "\n" "," >> results/improve_bonus_trie.csv 
 
-	python3 score_distance_suffix.py improve_bonus_trie_$prob | tr "\n" "," >> results/improve_bonus_trie.csv 
+	python3 score_distance_suffix.py translated_improve_bonus_trie_$prob | tr "\n" "," >> results/improve_bonus_trie.csv 
 
-	bash score_notconstrained_constrained_suffix.sh  translated_improve_bonus_trie_$prob >> results/improve_bonus_trie.csv 
+	bash score_notconstrained_constrained_suffix.sh  translated_improve_bonus_trie_$prob | tr "\n" ","  >> results/improve_bonus_trie.csv 
+    CUDA_VISIBLE_DEVICES=1  python score_comet.py 20 translated_improve_bonus_trie_$prob >> results/improve_bonus_trie.csv
+
 done
 done
 

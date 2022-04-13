@@ -1,3 +1,10 @@
+Download and extract the test set:
+
+cd testsets/
+url --remote-name-all https://lindat.mff.cuni.cz/repository/xmlui/bitstream/handle/11858/00-097C-0000-0023-10B2-F{/many-czech-references.zip,/README}
+unzip many-czech-references.zip 
+python extract.py
+
 Create initial translation by: ./baseline_trans.sh
 
 Create constraints for both fixing the translation and paraphrasing:

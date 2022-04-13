@@ -7,7 +7,7 @@ do
 	do
 	prob="-$i.$dec"	
 
-	bash test_constrained_para_beam_filter_multi.sh $prob
+	#bash test_constrained_para_beam_filter_multi.sh $prob
    echo -n $prob, >> results/para_beam_filter_multi.csv
 	python3 score_multiple_suffix.py 1 translated_para_beam_filter_multi_$prob | tr "\n" "," >> results/para_beam_filter_multi.csv 
 	
@@ -15,9 +15,11 @@ do
 
 	python3 score_multiple_suffix.py 1000 translated_para_beam_filter_multi_$prob | tr "\n" "," >> results/para_beam_filter_multi.csv 
 
-	python3 score_distance_suffix.py para_beam_filter_multi_$prob | tr "\n" "," >> results/para_beam_filter_multi.csv 
+	#python3 score_distance_suffix.py sep_translated_para_beam_filter_multi_$prob | tr "\n" "," >> results/para_beam_filter_multi.csv 
 
-	bash score_notconstrained_constrained_suffix.sh  translated_para_beam_filter_multi_$prob >> results/para_beam_filter_multi.csv 
+	bash score_notconstrained_constrained_suffix.sh  translated_para_beam_filter_multi_$prob | tr "\n" "," >> results/para_beam_filter_multi.csv 
+    CUDA_VISIBLE_DEVICES=1  python score_comet.py 20 translated_para_beam_filter_multi_$prob >> results/para_beam_filter_multi.csv
+
 done
 done
 
